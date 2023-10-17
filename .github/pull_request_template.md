@@ -87,12 +87,8 @@ Bora relembrar conceitos importantes para gerir suas emoções durante o projeto
 
 ### Materiáis complementares
 
- - [ ] [Mentoria de JOIN]()
- - [ ] [Mentoria de JOI]()
- - [ ] [Mentoria vale a pena ver de novo HOF`s parte 1]()
- - [ ] [Revisão de seção]()
- - [ ] [Mentoria Promise All]()
- - [ ] [Mentoria Clientes HTTP]()
+ - [ ] [Mentoria de JOI](https://app.betrybe.com/learn/course/5e938f69-6e32-43b3-9685-c936530fd326/live-lectures/f4a1bb16-f557-467f-80a7-eec972f7528d/recording/b7fdae44-d5a8-4960-848d-b8ea8d2be75a)
+ - [ ] [Promise All](https://app.betrybe.com/learn/course/5e938f69-6e32-43b3-9685-c936530fd326/module/94d0e996-1827-4fbc-bc24-c99fb592925b/section/d8fc0320-73f1-45d4-9f4f-2b6911b176b1/day/6e17b47a-8c39-46f0-aa0f-98d10e689e2d/lesson/3b63da9d-f106-417c-85ce-5e61cbc4f701)
 
 ## Requisitos obrigatórios do Projeto
 
