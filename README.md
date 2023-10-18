@@ -1,4 +1,4 @@
-# Boas-vindas ao repositório do projeto Store Manager
+# Boas-vindas ao repositório do projeto Store Manager - hello
 
 Para realizar o projeto, atente-se a cada passo descrito a seguir, e se tiver **qualquer dúvida**, nos envie no _Slack_ da turma! #vqv 🚀
 
