@@ -1,5 +1,5 @@
 const validateCreateSales = require('./validateCreateSales');
 
-const checkSalesArray = require('./checkSalesArray');
+const validadeBodyCreateSales = require('./validateBodyCreateSales');
 
-module.exports = { validateCreateSales, checkSalesArray };
+module.exports = { validateCreateSales, validadeBodyCreateSales };
