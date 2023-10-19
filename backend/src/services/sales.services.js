@@ -22,7 +22,26 @@ const getSaleById = async (saleId) => {
   };
 };
 
+const createSales = async (body) => {
+  const newSale = await salesModels.createSaleTime();
+
+  const insertionPromises = body.map(async (sale) => {
+    const { productId, quantity } = sale;
+    await salesModels.createSales(newSale.id, productId, quantity);
+  });
+
+  await Promise.all(insertionPromises);
+
+  const result = {
+    id: newSale.id,
+    itemsSold: body,
+  };
+
+  return { statusCode: 201, data: result };
+};
+
 module.exports = {
   findAllSales,
   getSaleById,
+  createSales,
 };
