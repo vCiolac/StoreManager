@@ -24,6 +24,12 @@ const getProductById = async (productId) => {
 
 const createProduct = async (name) => {
   const product = await productsModels.createProduct(name);
+  if (name.length < 5) {
+    return {
+      statusCode: 422,
+      data: { message: '"name" length must be at least 5 characters long' },
+    };
+  }
   return {
     statusCode: 201,
     data: product,

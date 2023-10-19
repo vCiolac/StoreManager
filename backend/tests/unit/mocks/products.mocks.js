@@ -70,6 +70,10 @@ const createProduct = [{
   name: 'Produto de Teste',
 }];
 
+const errorNameMock = { message: '"name" is required' };
+
+const errorLenghtNameMock = { message: '"name" length must be at least 5 characters long' };
+
 module.exports = {
   findAllMock,
   findByIdMock,
@@ -80,4 +84,6 @@ module.exports = {
   resultNotFoundMock,
   createProductMock,
   createProduct,
+  errorNameMock,
+  errorLenghtNameMock,
 };

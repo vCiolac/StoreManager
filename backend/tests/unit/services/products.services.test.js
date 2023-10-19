@@ -7,7 +7,8 @@ const {
   findAllMock,
   findByIdMock,
   messageError, 
-  createProduct } = require('../mocks/products.mocks');
+  errorLenghtNameMock, 
+  createProductMock } = require('../mocks/products.mocks');
 
 describe('Testa o service de produtos', function () {
   afterEach(function () {
@@ -40,11 +41,19 @@ describe('Testa o service de produtos', function () {
     expect(result.data).to.be.equal(messageError);
   });
   it('Testa a criação de um novo produto', async function () {
-    sinon.stub(productsModels, 'createProduct').resolves(createProduct);
+    sinon.stub(productsModels, 'createProduct').resolves(createProductMock);
 
-    const result = await productsService.createProduct(createProduct);
+    const result = await productsService.createProduct('Produto de Teste');
 
     expect(result).to.be.an('object');
-    expect(result.data).to.be.equal(createProduct);
+    expect(result.data).to.deep.equal(createProductMock);
+  });
+  it('Testa a validação de comprimento mínimo do nome', async function () {
+    sinon.stub(productsModels, 'createProduct').resolves(errorLenghtNameMock);
+  
+    const result = await productsService.createProduct({ name: 'oi' });
+  
+    expect(result).to.be.an('object');
+    expect(result.data).to.deep.equal({ message: '"name" length must be at least 5 characters long' });
   });
 });
