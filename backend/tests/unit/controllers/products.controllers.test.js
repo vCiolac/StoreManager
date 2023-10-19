@@ -7,7 +7,9 @@ const productsService = require('../../../src/services/products.services');
 const { 
   resultFindAllMock,
   resultfindByIdMock,
-  resultNotFoundMock } = require('../mocks/products.mocks');
+  resultNotFoundMock,
+  createProductMock,
+} = require('../mocks/products.mocks');
 
 chai.use(sinonChai);
 
@@ -53,5 +55,18 @@ describe('Testa o controller de produtos', function () {
     
     expect(res.status).to.be.calledWith(404);
     expect(res.json).to.be.calledWith(resultNotFoundMock.data);
+  });
+  it('Testa a criação de um produto', async function () {
+    sinon.stub(productsService, 'createProduct').resolves(createProductMock);
+
+    const req = { body: { name: 'Produto de Teste' } };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    await productsControllers.createProduct(req, res);
+
+    expect(res.status).to.be.calledWith(201);
+    expect(res.json).to.be.calledWith(createProductMock.data);
   });
 });

@@ -6,9 +6,13 @@ const productsModels = require('../../../src/models/products.models');
 const { 
   findAllMock,
   findByIdMock,
-  messageError } = require('../mocks/products.mocks');
+  messageError, 
+  createProduct } = require('../mocks/products.mocks');
 
 describe('Testa o service de produtos', function () {
+  afterEach(function () {
+    sinon.restore();
+  });
   it('Testa o método findAllProducts', async function () {
     sinon.stub(productsModels, 'findAllProducts').resolves(findAllMock);
 
@@ -35,8 +39,12 @@ describe('Testa o service de produtos', function () {
     expect(result).to.be.an('object');
     expect(result.data).to.be.equal(messageError);
   });
-  
-  afterEach(function () {
-    sinon.restore();
+  it('Testa a criação de um novo produto', async function () {
+    sinon.stub(productsModels, 'createProduct').resolves(createProduct);
+
+    const result = await productsService.createProduct(createProduct);
+
+    expect(result).to.be.an('object');
+    expect(result.data).to.be.equal(createProduct);
   });
 });

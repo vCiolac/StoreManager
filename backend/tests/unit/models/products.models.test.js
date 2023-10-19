@@ -8,6 +8,9 @@ const {
   notFoundMock } = require('../mocks/products.mocks');
 
 describe('Testa o models de produtos', function () {
+  afterEach(function () {
+    sinon.restore();
+  });
   it('Testa o método findAllProducts', async function () {
     sinon.stub(connection, 'execute').resolves([findAllMock]);
 
@@ -37,7 +40,13 @@ describe('Testa o models de produtos', function () {
 
     expect(result).to.be.an('undefined');
   });
-  afterEach(function () {
-    sinon.restore();
+  it('Testa a criação de um produto', async function () {
+    sinon.stub(connection, 'execute').resolves([{ insertId: 4 }]);
+
+    const result = await productsModels.createProduct('Produto de Teste');
+
+    expect(result).to.be.an('object');
+    expect(result.id).to.be.equal(4);
+    expect(result.name).to.be.equal('Produto de Teste');
   });
 });

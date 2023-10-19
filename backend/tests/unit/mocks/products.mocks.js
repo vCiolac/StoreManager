@@ -55,6 +55,21 @@ const resultfindByIdMock = {
   ],
 };
 
+const createProductMock = {
+  statusCode: 201,
+  data: [
+    {
+      id: 4,
+      name: 'Produto de Teste',
+    },
+  ],
+};
+
+const createProduct = [{
+  id: 4,
+  name: 'Produto de Teste',
+}];
+
 module.exports = {
   findAllMock,
   findByIdMock,
@@ -63,4 +78,6 @@ module.exports = {
   resultFindAllMock,
   resultfindByIdMock,
   resultNotFoundMock,
+  createProductMock,
+  createProduct,
 };

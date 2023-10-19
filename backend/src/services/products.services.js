@@ -22,7 +22,16 @@ const getProductById = async (productId) => {
   };
 };
 
+const createProduct = async (name) => {
+  const product = await productsModels.createProduct(name);
+  return {
+    statusCode: 201,
+    data: product,
+  };
+};
+
 module.exports = {
   findAllProducts,
   getProductById,
+  createProduct,
 };

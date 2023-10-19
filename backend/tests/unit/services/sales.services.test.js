@@ -8,7 +8,7 @@ const {
   getSaleByIdMock,
   messageError } = require('../mocks/sales.mocks');
 
-describe('Testa o service de produtos', function () {
+describe('Testa o service de sales', function () {
   it('Testa o método findAllSales', async function () {
     sinon.stub(salesModels, 'findAllSales').resolves(findAllSalesMock);
 
