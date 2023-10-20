@@ -10,6 +10,8 @@ const {
   resultNotFoundMock,
   createProductMock,
   errorNameMock,
+  updateProductByIdMock,
+  resultUpdateMock,
 } = require('../mocks/products.mocks');
 
 chai.use(sinonChai);
@@ -82,5 +84,17 @@ describe('Testa o controller de produtos', function () {
   
     expect(res.status).to.be.calledWith(400);
     expect(res.json).to.be.calledWith({ message: '"name" is required' });
+  });
+  it('Testa o método updateProductById', async function () {
+    sinon.stub(productsService, 'updateProductById').resolves(updateProductByIdMock);
+  
+    const req = { params: { id: 1 }, body: { name: 'Martelo do Batman' } };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+  
+    await productsControllers.updateProductById(req, res);
+    expect(res.json).to.be.calledWith(resultUpdateMock.data);
   });
 });

@@ -36,8 +36,30 @@ const createProduct = async (name) => {
   };
 };
 
+const updateProductById = async (productId, newName) => {
+  if (newName.length < 5) {
+    return {
+      statusCode: 422,
+      data: { message: '"name" length must be at least 5 characters long' },
+    };
+  }
+  const productIds = await productsModels.findAllIdProducts();
+  if (!productIds.includes(Number(productId))) {
+    return {
+      statusCode: 404,
+      data: { message: 'Product not found' },
+    };
+  }
+  const { id, name } = await productsModels.updateProductById(productId, newName);
+  return {
+    statusCode: 200,
+    data: { id: Number(id), name },
+  };
+};
+
 module.exports = {
   findAllProducts,
   getProductById,
   createProduct,
+  updateProductById,
 };

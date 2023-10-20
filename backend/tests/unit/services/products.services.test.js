@@ -3,12 +3,14 @@ const { expect } = require('chai');
 
 const productsService = require('../../../src/services/products.services');
 const productsModels = require('../../../src/models/products.models');
-const { 
+const {
   findAllMock,
   findByIdMock,
-  notFoundMock, 
+  notFoundMock,
   errorLenghtNameMock,
-  createProductMock } = require('../mocks/products.mocks');
+  createProductMock,
+  resultUpdateMock,
+} = require('../mocks/products.mocks');
 
 describe('Testa o service de produtos', function () {
   afterEach(function () {
@@ -23,7 +25,7 @@ describe('Testa o service de produtos', function () {
     expect(result).to.be.an('object');
     expect(result.data).to.be.equal(findAllMock);
   });
-  
+
   it('Testa o método getProductById', async function () {
     sinon.stub(productsModels, 'getProductById').resolves(findByIdMock);
 
@@ -35,19 +37,19 @@ describe('Testa o service de produtos', function () {
 
   it('Testa caso dê erro no método getProductById', async function () {
     sinon.stub(productsModels, 'getProductById').resolves(notFoundMock);
-  
+
     const result = await productsService.getProductById(500);
-  
+
     expect(result).to.be.an('object');
     expect(result.statusCode).to.be.equal(404);
     expect(result.data).to.deep.equal({ message: 'Product not found' });
   });
-  
+
   it('Testa erro no método createProduct', async function () {
     sinon.stub(productsModels, 'createProduct').resolves(errorLenghtNameMock);
-  
+
     const result = await productsService.createProduct('abc');
-  
+
     expect(result).to.be.an('object');
     expect(result.statusCode).to.be.equal(422);
     expect(result.data).to.deep.equal(errorLenghtNameMock);
@@ -60,5 +62,14 @@ describe('Testa o service de produtos', function () {
 
     expect(result).to.be.an('object');
     expect(result.data).to.deep.equal(createProductMock);
+  });
+
+  it('Testa o método updateProductByIdMock', async function () {
+    sinon.stub(productsModels, 'updateProductById').resolves(resultUpdateMock);
+
+    const result = await productsService.updateProductById('1', 'Martelo de Thor');
+
+    expect(result).to.be.an('object');
+    expect(result.data).to.deep.equal({ id: 1, name: 'Martelo do Batman' });
   });
 });

@@ -5,7 +5,9 @@ const connection = require('../../../src/models/connection');
 const {
   findAllMock,
   findByIdMock,
-  notFoundMock } = require('../mocks/products.mocks');
+  notFoundMock,
+  resultUpdateMock,
+} = require('../mocks/products.mocks');
 
 describe('Testa o models de produtos', function () {
   afterEach(function () {
@@ -57,5 +59,12 @@ describe('Testa o models de produtos', function () {
     expect(result).to.be.an('array');
     expect(result[0]).to.be.equal(1);
     expect(result[1]).to.be.equal(2);
+  });
+  it('Testa o método updateProductById', async function () {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+
+    const result = await productsModels.updateProductById('1', 'Martelo do Batman');
+
+    expect(result).to.deep.equal(resultUpdateMock);
   });
 });

@@ -21,13 +21,14 @@ describe('Middleware validateCreateSales', function () {
     };
     const res = {
       status: sinon.stub().returnsThis(),
-      json: sinon.spy(),
+      json: sinon.stub(),
     };
-    const next = sinon.spy();
+    const next = sinon.stub().returns();
 
     sinon.stub(productsModels, 'findAllIdProducts').resolves([1, 2]);
 
     await validateCreateSales(req, res, next);
+    expect(next).to.have.been.calledWith();
   });
 
   it('Verificar se body contem ambos valores', async function () {
