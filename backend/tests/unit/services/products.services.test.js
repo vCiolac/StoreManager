@@ -72,4 +72,13 @@ describe('Testa o service de produtos', function () {
     expect(result).to.be.an('object');
     expect(result.data).to.deep.equal({ id: 1, name: 'Martelo do Batman' });
   });
+
+  it('Testa o método deleteProductById', async function () {
+    sinon.stub(productsModels, 'deleteProductById').resolves();
+
+    const result = await productsService.deleteProductById(1);
+
+    expect(result).to.be.an('object');
+    expect(result.statusCode).to.be.equal(204);
+  });
 });

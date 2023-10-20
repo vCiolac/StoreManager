@@ -61,10 +61,17 @@ describe('Testa o models de produtos', function () {
     expect(result[1]).to.be.equal(2);
   });
   it('Testa o método updateProductById', async function () {
-    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+    sinon.stub(connection, 'execute').resolves([{ row: 1 }]);
 
     const result = await productsModels.updateProductById('1', 'Martelo do Batman');
 
     expect(result).to.deep.equal(resultUpdateMock);
+  });
+  it('Testa o método deleteProductById', async function () {
+    sinon.stub(connection, 'execute').resolves([]);
+
+    const result = await productsModels.deleteProductById('1');
+
+    expect(result).to.be.an('undefined');
   });
 });

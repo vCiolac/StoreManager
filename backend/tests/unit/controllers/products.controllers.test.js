@@ -97,4 +97,17 @@ describe('Testa o controller de produtos', function () {
     await productsControllers.updateProductById(req, res);
     expect(res.json).to.be.calledWith(resultUpdateMock.data);
   });
+  it('Testa o método deleteProductById', async function () {
+    sinon.stub(productsService, 'deleteProductById').resolves({ statusCode: 204 });
+  
+    const req = { params: { id: 1 } };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+  
+    await productsControllers.deleteProductById(req, res);
+    expect(res.status).to.be.calledWith(204);
+    expect(res.json).to.be.calledWith();
+  });
 });
