@@ -72,12 +72,45 @@ const resultfindByIdMock = {
 
 const notFoundMock = undefined;
 
-const messageError = { message: 'Sale not found' };
-
 const resultNotFoundMock = {
   statusCode: 404,
   message: 'Sale not found',
 };
+
+const createMock = [
+  {
+    productId: 1,
+    quantity: 1,
+  },
+  {
+    productId: 2,
+    quantity: 5,
+  },
+];
+
+const resultCreateMock = {
+  id: 3,
+  itemsSold: [
+    {
+      productId: 1,
+      quantity: 1,
+    },
+    {
+      productId: 2,
+      quantity: 5,
+    },
+  ],
+};
+
+const createErrorMock = [
+  {
+    productId: 1,
+    quantity: 1,
+  },
+  {
+    quantity: 5,
+  },
+];
 
 module.exports = {
   findAllSalesMock,
@@ -86,5 +119,7 @@ module.exports = {
   resultfindByIdMock,
   notFoundMock,
   resultNotFoundMock,
-  messageError,
+  createMock,
+  resultCreateMock,
+  createErrorMock,
 };

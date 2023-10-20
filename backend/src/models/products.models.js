@@ -21,8 +21,14 @@ const createProduct = async (name) => {
   return { id: product.insertId, name };
 };
 
+const findAllIdProducts = async () => {
+  const [products] = await connection.execute('SELECT id FROM products');
+  return products.map((product) => product.id);
+};
+
 module.exports = {
   findAllProducts,
   getProductById,
   createProduct,
+  findAllIdProducts,
 };

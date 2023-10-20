@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const { productsModels } = require('../models');
 
 const schema = Joi.array().items(
   Joi.object({
@@ -15,7 +16,7 @@ const schema = Joi.array().items(
   }),
 );
 
-const validateCreateSales = (req, res, next) => {
+const validateCreateSales = async (req, res, next) => {
   const { error } = schema.validate(req.body);
 
   if (error) {
@@ -25,6 +26,13 @@ const validateCreateSales = (req, res, next) => {
     }
 
     return res.status(422).json({ message: error.details[0].message });
+  }
+
+  const productIds = await productsModels.findAllIdProducts();
+  const invalidProducts = req.body.filter((item) => !productIds.includes(item.productId));
+
+  if (invalidProducts.length > 0) {
+    return res.status(404).json({ message: 'Product not found' });
   }
 
   next();

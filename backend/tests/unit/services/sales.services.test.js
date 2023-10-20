@@ -6,9 +6,14 @@ const salesModels = require('../../../src/models/sales.models');
 const { 
   findAllSalesMock,
   getSaleByIdMock,
-  messageError } = require('../mocks/sales.mocks');
+  createMock,
+  resultCreateMock,
+} = require('../mocks/sales.mocks');
 
 describe('Testa o service de sales', function () {
+  afterEach(function () {
+    sinon.restore();
+  });
   it('Testa o método findAllSales', async function () {
     sinon.stub(salesModels, 'findAllSales').resolves(findAllSalesMock);
 
@@ -28,15 +33,20 @@ describe('Testa o service de sales', function () {
   });
 
   it('Testa caso dê erro na busca', async function () {
-    sinon.stub(salesModels, 'getSaleById').resolves(messageError);
-
+    sinon.stub(salesModels, 'getSaleById').resolves([]);
+  
     const result = await salesService.getSaleById(500);
-
+  
     expect(result).to.be.an('object');
-    expect(result.data).to.be.equal(messageError);
+    expect(result.data).to.deep.equal({ message: 'Sale not found' });
   });
   
-  afterEach(function () {
-    sinon.restore();
+  it('Testa o método createSales', async function () {
+    sinon.stub(salesModels, 'createSales').resolves(resultCreateMock);
+
+    const result = await salesService.createSales(createMock);
+
+    expect(result).to.be.an('object');
+    expect(result.data.itemsSold).to.deep.equal(resultCreateMock.itemsSold);
   });
 });

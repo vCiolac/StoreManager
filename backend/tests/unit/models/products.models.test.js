@@ -49,4 +49,13 @@ describe('Testa o models de produtos', function () {
     expect(result.id).to.be.equal(4);
     expect(result.name).to.be.equal('Produto de Teste');
   });
+  it('Testa o método findAllIdProducts', async function () {
+    sinon.stub(connection, 'execute').resolves([[{ id: 1 }, { id: 2 }]]);
+
+    const result = await productsModels.findAllIdProducts();
+
+    expect(result).to.be.an('array');
+    expect(result[0]).to.be.equal(1);
+    expect(result[1]).to.be.equal(2);
+  });
 });

@@ -8,6 +8,9 @@ const {
   notFoundMock } = require('../mocks/sales.mocks');
 
 describe('Testa o models de sales', function () {
+  afterEach(function () {
+    sinon.restore();
+  });
   it('Testa o método findAllSales', async function () {
     sinon.stub(connection, 'execute').resolves([findAllSalesMock]);
 
@@ -48,7 +51,25 @@ describe('Testa o models de sales', function () {
 
     expect(result).to.be.an('undefined');
   });
-  afterEach(function () {
-    sinon.restore();
+  it('Testa o método createSaleTime', async function () {
+    const stubFunc = sinon.stub(connection, 'execute').resolves([{ insertId: 21 }]);
+
+    const query = 'INSERT INTO sales VALUES ()';
+
+    const result = await salesModels.createSaleTime();
+
+    expect(result).to.be.an('object');
+    expect(result).to.be.deep.equal({ id: 21 });
+    expect(stubFunc.calledWith(query, [])).to.be.equal(false);
+  });
+  it('Testa o método createSales', async function () {
+    const stubFunc = sinon.stub(connection, 'execute').resolves([{ insertId: 21 }]);
+
+    const query = 'INSERT INTO sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)';
+
+    const result = await salesModels.createSales(21, 1, 5);
+
+    expect(result).to.be.an('undefined');
+    expect(stubFunc.calledWith(query, [21, 1, 5])).to.be.equal(true);
   });
 });

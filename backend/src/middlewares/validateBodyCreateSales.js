@@ -7,10 +7,8 @@ const validateBodyCreateSales = (req, res, next) => {
 
   const hasInvalidFields = body.some((item) => {
     const { productId } = item;
-    console.log('item:', item, 'body:', body);
     if (!productId) {
-      res.status(400).json({ message: '"productId" is required' });
-      return true;
+      return res.status(400).json({ message: '"productId" is required' });
     }
     return false;
   });

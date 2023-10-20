@@ -4,10 +4,13 @@ const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
 const salesControllers = require('../../../src/controllers/sales.controllers');
 const salesService = require('../../../src/services/sales.services');
-const { 
+const {
   resultFindAllMock,
   resultfindByIdMock,
-  resultNotFoundMock } = require('../mocks/sales.mocks');
+  resultNotFoundMock,
+  resultCreateMock,
+  createMock,
+} = require('../mocks/sales.mocks');
 
 chai.use(sinonChai);
 
@@ -50,8 +53,20 @@ describe('Testa o controller de sales', function () {
       json: sinon.stub(),
     };
     await salesControllers.getSaleById(req, res);
-    
+
     expect(res.status).to.be.calledWith(404);
     expect(res.json).to.be.calledWith(resultNotFoundMock.data);
+  });
+  it('Testa o método createSales', async function () {
+    sinon.stub(salesService, 'createSales').resolves(resultCreateMock);
+
+    const req = { body: createMock };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    await salesControllers.createSales(req, res);
+
+    expect(res.json).to.be.calledWith(resultCreateMock.data);
   });
 });
