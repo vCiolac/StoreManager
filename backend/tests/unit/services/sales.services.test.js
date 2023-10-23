@@ -8,6 +8,7 @@ const {
   getSaleByIdMock,
   createMock,
   resultCreateMock,
+  validadeUpdateQuantityMock,
 } = require('../mocks/sales.mocks');
 
 describe('Testa o service de sales', function () {
@@ -56,6 +57,15 @@ describe('Testa o service de sales', function () {
     const result = await salesService.deleteSaleById(1);
 
     expect(result).to.be.an('object');
-    expect(result.statusCode).to.be.equal(404);
+    expect(result.statusCode).to.be.equal(204);
+  });
+
+  it('Testa o método updateSaleQuantity', async function () {
+    sinon.stub(salesModels, 'updateSaleQuantity').resolves(validadeUpdateQuantityMock);
+
+    const result = await salesService.updateSaleQuantity(1, 1, 2);
+
+    expect(result).to.be.an('object');
+    expect(result.statusCode).to.be.equal(200);
   });
 });

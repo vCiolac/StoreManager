@@ -1,4 +1,4 @@
-const { salesModels } = require('../models');
+const { salesModels, productsModels } = require('../models');
 
 const findAllSales = async () => {
   const sales = await salesModels.findAllSales();
@@ -54,9 +54,32 @@ const deleteSaleById = async (saleId) => {
   };
 };
 
+const updateSaleQuantity = async (saleId, productId, quantity) => {
+  const saleIds = await salesModels.findAllSalesId();
+  if (!saleIds.includes(Number(saleId))) {
+    return { statusCode: 404, data: { message: 'Sale not found' } };
+  }
+  const productIds = await productsModels.findAllIdProducts();
+  if (!productIds.includes(Number(productId))) {
+    return { statusCode: 404, data: { message: 'Product not found in sale' } };
+  }
+  const sale = await salesModels.getSaleById(saleId);
+  await salesModels.updateSaleQuantity(saleId, productId, quantity);
+
+  return {
+    data: {
+      saleId: Number(saleId),
+      productId: Number(productId),
+      quantity: Number(quantity),
+      date: sale[0].date },
+    statusCode: 200,
+  };
+};
+
 module.exports = {
   findAllSales,
   getSaleById,
   createSales,
   deleteSaleById,
+  updateSaleQuantity,
 };

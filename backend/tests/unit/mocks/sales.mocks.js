@@ -112,6 +112,17 @@ const createErrorMock = [
   },
 ];
 
+const validadeUpdateQuantityMock = {
+  saleId: 2,
+  productId: 3,
+  quantity: 72,
+  date: '2023-10-23T20:18:40.000Z',
+};
+
+const validadeParamsMock = {
+  quantity: 72,
+};
+
 module.exports = {
   findAllSalesMock,
   getSaleByIdMock,
@@ -122,4 +133,6 @@ module.exports = {
   createMock,
   resultCreateMock,
   createErrorMock,
+  validadeUpdateQuantityMock,
+  validadeParamsMock,
 };

@@ -2,4 +2,11 @@ const validateCreateSales = require('./validateCreateSales');
 
 const validadeBodyCreateSales = require('./validateBodyCreateSales');
 
-module.exports = { validateCreateSales, validadeBodyCreateSales };
+const { validadeUpdateQuantity, validadeParams } = require('./validadeUpdateQuantity');
+
+module.exports = {
+  validateCreateSales,
+  validadeBodyCreateSales,
+  validadeUpdateQuantity,
+  validadeParams,
+};

@@ -82,4 +82,17 @@ describe('Testa o controller de sales', function () {
     expect(res.status).to.be.calledWith(204);
     expect(res.json).to.be.calledWith();
   });
+  it('Testa o método updateSaleQuantity', async function () {
+    sinon.stub(salesService, 'updateSaleQuantity').resolves({ statusCode: 200 });
+  
+    const req = { params: { id: 1, productId: 1 }, body: { quantity: 1 } };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+  
+    await salesControllers.updateSaleQuantity(req, res);
+    expect(res.status).to.be.calledWith(200);
+    expect(res.json).to.be.calledWith();
+  });
 });

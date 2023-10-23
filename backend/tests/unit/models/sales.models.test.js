@@ -86,4 +86,11 @@ describe('Testa o models de sales', function () {
 
     expect(result).to.be.an('undefined');
   });
+  it('Testa o método updateSaleQuantity', async function () {
+    sinon.stub(connection, 'execute').resolves([]);
+
+    const result = await salesModels.updateSaleQuantity('1', '1', '1');
+
+    expect(result).to.be.an('undefined');
+  });
 });
