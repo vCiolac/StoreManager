@@ -71,10 +71,19 @@ const deleteProductById = async (productId) => {
   };
 };
 
+const searchProducts = async (q) => {
+  const products = await productsModels.searchProducts(q);
+  return {
+    statusCode: 200,
+    data: products,
+  };
+};
+
 module.exports = {
   findAllProducts,
   getProductById,
   createProduct,
   updateProductById,
   deleteProductById,
+  searchProducts,
 };
