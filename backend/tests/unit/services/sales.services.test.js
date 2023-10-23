@@ -49,4 +49,13 @@ describe('Testa o service de sales', function () {
     expect(result).to.be.an('object');
     expect(result.data.itemsSold).to.deep.equal(resultCreateMock.itemsSold);
   });
+
+  it('Testa o método deleteSale', async function () {
+    sinon.stub(salesModels, 'deleteSale').resolves();
+
+    const result = await salesService.deleteSaleById(1);
+
+    expect(result).to.be.an('object');
+    expect(result.statusCode).to.be.equal(404);
+  });
 });

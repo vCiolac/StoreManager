@@ -44,9 +44,23 @@ const createSales = async (saleId, productId, quantity) => {
   );
 };
 
+const findAllSalesId = async () => {
+  const [sales] = await connection.execute('SELECT id FROM sales');
+  return sales ? sales.map((sale) => sale.id) : [];
+};
+
+const deleteSale = async (id) => {
+  await connection.execute(
+    'DELETE FROM sales WHERE id = ?',
+    [id],
+  );
+};
+
 module.exports = {
   findAllSales,
   getSaleById,
   createSales,
   createSaleTime,
+  findAllSalesId,
+  deleteSale,
 };

@@ -72,4 +72,18 @@ describe('Testa o models de sales', function () {
     expect(result).to.be.an('undefined');
     expect(stubFunc.calledWith(query, [21, 1, 5])).to.be.equal(true);
   });
+  it('Testa o método findAllSalesId', async function () {
+    sinon.stub(connection, 'execute').resolves([]);
+
+    const result = await salesModels.findAllSalesId();
+
+    expect(result).to.be.an('array');
+  });
+  it('Testa o método deleteSale', async function () {
+    sinon.stub(connection, 'execute').resolves([]);
+
+    const result = await salesModels.deleteSale('1');
+
+    expect(result).to.be.an('undefined');
+  });
 });

@@ -40,8 +40,23 @@ const createSales = async (body) => {
   return { statusCode: 201, data: result };
 };
 
+const deleteSaleById = async (saleId) => {
+  const saleIds = await salesModels.findAllSalesId();
+  if (!saleIds.includes(Number(saleId))) {
+    return {
+      statusCode: 404,
+      data: { message: 'Sale not found' },
+    };
+  }
+  await salesModels.deleteSale(saleId);
+  return {
+    statusCode: 204,
+  };
+};
+
 module.exports = {
   findAllSales,
   getSaleById,
   createSales,
+  deleteSaleById,
 };

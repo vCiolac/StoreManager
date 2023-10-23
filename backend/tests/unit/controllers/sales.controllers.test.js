@@ -69,4 +69,17 @@ describe('Testa o controller de sales', function () {
 
     expect(res.json).to.be.calledWith(resultCreateMock.data);
   });
+  it('Testa o método deleteSaleById', async function () {
+    sinon.stub(salesService, 'deleteSaleById').resolves({ statusCode: 204 });
+  
+    const req = { params: { id: 1 } };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+  
+    await salesControllers.deleteSaleById(req, res);
+    expect(res.status).to.be.calledWith(204);
+    expect(res.json).to.be.calledWith();
+  });
 });
